@@ -10,7 +10,6 @@ const Home: NextPage = () => {
   return (
     <>
     <div className="wrapper bg-slate-200 h-screen">
-      {/* <Nav /> */}
     <NavBtn navState={navState} setNavState={setNavState}/>
     <Nav  navState={navState} setNavState={setNavState}/>
     <Homepage />

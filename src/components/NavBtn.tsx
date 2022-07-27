@@ -8,7 +8,7 @@ type navStateType ={
 
 function NavBtn(props:navStateType) {
   return (
-    <div className="relative">
+    <div className="relative lg:hidden">
       <div className="fixed right-6" onClick={()=>props.setNavState(!props.navState)}>
         <DehazeIcon sx={{fontSize:30}}/>
       </div>

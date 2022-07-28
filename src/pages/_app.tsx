@@ -7,7 +7,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [navState, setNavState] = useState<boolean>(false);
 
   return (
-    <div className="wrapper bg-slate-200 h-screen">
+    <div className="wrapper bg-slate-200 h-screen md:flex">
       <NavBtn navState={navState} setNavState={setNavState} />
       <Nav navState={navState} setNavState={setNavState} />
       <Component {...pageProps} />

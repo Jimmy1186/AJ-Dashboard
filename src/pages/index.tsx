@@ -6,14 +6,11 @@ import NavBtn from '../components/NavBtn'
 
 
 const Home: NextPage = () => {
-  const [navState,setNavState]=useState<boolean>(false)
+ 
   return (
     <>
-    <div className="wrapper bg-slate-200 h-screen">
-    <NavBtn navState={navState} setNavState={setNavState}/>
-    <Nav  navState={navState} setNavState={setNavState}/>
     <Homepage />
-    </div>
+ 
     </>
   )
 }

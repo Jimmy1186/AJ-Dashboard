@@ -4,11 +4,12 @@ import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
 import Paper from "@mui/material/Paper";
 
+
 function TopBar() {
   return (
 
-    <Paper elevation={3}>
-    <div className="top  h-20  flex justify-center items-center">
+  <Paper elevation={3}>
+    <div className="top  h-20  flex justify-center items-center md:justify-start pl-10">
 
     <TextField
      id="input-with-icon-textfield"
@@ -24,6 +25,8 @@ function TopBar() {
    />
    </div>
    </Paper >
+
+  
     
   )
 }

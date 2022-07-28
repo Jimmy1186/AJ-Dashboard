@@ -10,6 +10,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
+
 const data = [
   {
     name: "Page A",
@@ -56,7 +57,8 @@ const data = [
 ];
 function Analysis() {
   return (
-    <Paper elevation={3} sx={{height:250}}>
+
+        <Paper elevation={3} sx={{height:250}}>
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart
             width={500}
@@ -97,6 +99,8 @@ function Analysis() {
           </AreaChart>
         </ResponsiveContainer>
       </Paper>
+
+  
   )
 }
 

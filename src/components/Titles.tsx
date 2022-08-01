@@ -1,19 +1,20 @@
 import React from "react";
-import Paper from "@mui/material/Paper";
 
 type titleWrapperType = {
   children: React.ReactNode;
   titleName: string;
 };
 
-function Titles({ children,titleName }: titleWrapperType ) {
+function Titles({ children, titleName }: titleWrapperType) {
   return (
-    <div className="flex flex-col h-full gap-5 p-5 md:w-2/3 rounded-l-md lg:w-full">
-      <Paper elevation={3}>
-        <h1 className="text-3xl text-center py-5">{titleName}</h1>
-      </Paper>
+    <div className="card flex justify-center p-3">
+        <div className="card w-full bg-white p-5 shadow-xl">
+        <div className="card-body">
+        <h2 className="card-title">{titleName}</h2>
 
-      {children}
+        {children}
+        </div>
+      </div>
     </div>
   );
 }

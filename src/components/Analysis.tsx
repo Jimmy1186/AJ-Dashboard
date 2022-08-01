@@ -1,5 +1,5 @@
-import React from 'react'
-import Paper from "@mui/material/Paper";
+import React from "react";
+
 import {
   AreaChart,
   Area,
@@ -9,7 +9,6 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-
 
 const data = [
   {
@@ -57,8 +56,8 @@ const data = [
 ];
 function Analysis() {
   return (
-
-        <Paper elevation={3} sx={{height:250}}>
+    <div className="card w-full h-40 shadow-xl">
+      <div className="card-body w-full h-full bg-white">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart
             width={500}
@@ -98,10 +97,9 @@ function Analysis() {
             />
           </AreaChart>
         </ResponsiveContainer>
-      </Paper>
-
-  
-  )
+      </div>
+    </div>
+  );
 }
 
-export default Analysis
+export default Analysis;

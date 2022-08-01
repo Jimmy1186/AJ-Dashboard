@@ -1,34 +1,27 @@
-import React from 'react'
-import TextField from '@mui/material/TextField';
-import SearchIcon from '@mui/icons-material/Search';
-import InputAdornment from '@mui/material/InputAdornment';
-import Paper from "@mui/material/Paper";
-
+import React from "react";
 
 function TopBar() {
   return (
-
-  <Paper elevation={3}>
-    <div className="top  h-20  flex justify-center items-center md:justify-start pl-10">
-
-    <TextField
-     id="input-with-icon-textfield"
-     label="資料收尋"
-     InputProps={{
-       startAdornment: (
-         <InputAdornment position="start">
-           <SearchIcon sx={{fontSize:30}}/>
-         </InputAdornment>
-       ),
-     }}
-     variant="standard"
-   />
-   </div>
-   </Paper >
-
-  
-    
-  )
+    <div className="card bg-white shadow-xl">
+      <div className="card-body flex p-3 gap-3">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth="2"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+          />
+        </svg>
+        <input type="text" placeholder="Search" className="input input-bordered input-success w-8/12 max-w-xs" />
+      </div>
+    </div>
+  );
 }
 
-export default TopBar
+export default TopBar;

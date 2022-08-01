@@ -35,36 +35,42 @@ const options = {
       credentials: {
         username: { label: 'UserName', type: 'text', placeholder: 'jsmith' },
         password: { label: 'Password', type: 'password' },
+        email:{label:"Email",type:'text'},
+
       },
 
       async authorize(credentials) {
         const data = {
           username: `${credentials?.username}`,
           password: `${credentials?.password}`,
-          role: 'GUEST',
+          email:`${credentials?.email}`,
         };
-        // Checking out manually is user registered or not
+        // const user = await prisma.user.create( {data} );
+        // return user
+   
         const registeredUser = await prisma.user.findFirst({
           where: { username: { startsWith: credentials?.username } },
         });
         // We can throw errors if user exist or return user itself
         // Returning registeredUser
         if (registeredUser) return registeredUser;
-        try {
-          // const hashed = await hash(data?.password, 10).then(
-          //   (hasedPass) => (data.password = hasedPass)
-          // );
-          const user = await prisma.user.create( {data} );
-          // New user successfully created
-          return user;
-        } catch (e) {
-          console.log(e);
-        }
+        // try {
+        //   // const hashed = await hash(data?.password, 10).then(
+        //   //   (hasedPass) => (data.password = hasedPass)
+        //   // );
+        //   const user = await prisma.user.create( {data} );
+        //   // New user successfully created
+        //   return user;
+        // } catch (e) {
+        //   console.log(e);
+        // }
         // login failed
+        console.log('no user found')
         return null;
       },
     }),
   ],
+  
   callbacks: {
     // Remove Any
     jwt: async (params: any) => {
@@ -86,6 +92,15 @@ const options = {
       return session;
     },
   },
+  pages: {
+    signIn: '/login',
+    signOut: '/auth/signout',
+    signup: '/admin/signup',
+    error: '/auth/error', // Error code passed in query string as ?error=
+    verifyRequest: '/auth/verify-request', // (used for check email message)
+    newUser: '/auth/new-user' // New users will be directed here on first sign in (leave the property out if not of interest)
+  }
+  
 };
 
 export default (req: NextApiRequest, res: NextApiResponse) =>

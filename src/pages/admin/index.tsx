@@ -1,14 +1,20 @@
 import React from "react";
-
+import Link from "next/link";
 import Paper from "@mui/material/Paper";
+import Titles from "../../components/Titles";
 
 function index() {
   return (
-    <div className="flex flex-col h-full gap-5 p-5 md:w-2/3 rounded-l-md lg:w-full">
-      <Paper elevation={3}>
-        <h1 className="text-3xl text-center py-5">管理員</h1>
+    <Titles titleName="管理員">
+      <Paper>
+        <Link href="admin/signup">
+          <a>新增使用者</a>
+        </Link>
       </Paper>
-    </div>
+      <Paper>
+        
+      </Paper>
+    </Titles>
   );
 }
 

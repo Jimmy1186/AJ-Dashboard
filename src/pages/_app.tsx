@@ -14,7 +14,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <SessionProvider
     session={pageProps.session}
   >
-    <div className="wrapper bg-slate-200 h-screen md:flex">
+    <div className="wrapper bg-slate-200  h-screen md:flex">
       <NavBtn navState={navState} setNavState={setNavState} />
       <Nav navState={navState} setNavState={setNavState} />
       <Component {...pageProps} />

@@ -5,7 +5,7 @@ import Titles from "../../../components/Titles";
 function index() {
   return (
     <>
-    <Titles titleName="管理員">
+    <Titles titleName="管理員" withTitle={true}>
       <div className="card bg-base-100 shadow-xl">
         <div className="card-body">
           <Link href="admin/signup">

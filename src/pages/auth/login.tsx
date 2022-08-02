@@ -50,13 +50,14 @@ function login() {
 
   return (
     <>
-      <Titles titleName="登入">
-        <div className="card bg-white shadow-xl md:w-2/3">
-          <figure className="photoBox h-40 relative ">
+      <Titles withTitle={false} >
+        <div className="card bg-white shadow-xl md:card-side md:place-self-center md:w-full  max-w-4xl">
+          <figure className="photoBox h-40 relative md:h-full md:w-1/2">
             <Image src={loginBg} layout="fill" />
           </figure>
           <div className="card-body p-5">
-            <form className="flex flex-col gap-3" onSubmit={submitHandler}>
+            <form className="flex flex-col gap-3 max-w-screen-sm " onSubmit={submitHandler}>
+              <h2 className="text-3xl font-bold">登入</h2>
               {/* <input name="csrfToken" type="hidden" defaultValue={csrfToken} /> */}
 
               {msg ? (
@@ -93,7 +94,7 @@ function login() {
                   setUsername(e.target.value);
                 }}
                 value={username}
-                className="input input-lg input-bordered border-2 p-2 w-full max-w-xs"
+                className="input input-lg input-bordered border-2 p-2 w-full"
               />
 
               <label htmlFor="password">密碼 </label>
@@ -104,7 +105,7 @@ function login() {
                 type="password"
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
-                className="input input-lg  input-bordered border-2 p-2 w-full max-w-xs"
+                className="input input-lg  input-bordered border-2 p-2 w-full"
               />
               <button
                 className="btn btn-outline btn-success p-2 border-2 mt-3"

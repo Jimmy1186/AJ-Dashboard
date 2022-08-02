@@ -1,5 +1,5 @@
 import React from "react";
-import Titles from "../../components/Titles";
+import Titles from "../../../components/Titles";
 import { useFormik } from "formik";
 import { getProviders, signIn } from "next-auth/react";
 import { getCsrfToken } from "next-auth/react";
@@ -23,7 +23,8 @@ function signin() {
     },
   });
   return (
-    <Titles titleName="新增使用者">
+    <>
+    <Titles titleName="新增使用者" >
       <div className="card bg-base-100 shadow-xl">
         <form onSubmit={formik.handleSubmit}>
           {/* <input name="csrfToken" type="hidden" defaultValue={csrfToken} /> */}
@@ -57,7 +58,9 @@ function signin() {
           <button type="submit">Submit</button>
         </form>
       </div>
-    </Titles>
+      </Titles>
+    </>
+   
   );
 }
 

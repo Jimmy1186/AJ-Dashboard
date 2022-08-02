@@ -2,8 +2,8 @@ import React from "react";
 
 function TopBar() {
   return (
-    <div className="card bg-white shadow-xl">
-      <div className="card-body flex p-3 gap-3">
+    <div className="card  bg-white shadow-xl ">
+      <div className="card-body flex flex-row  justify-center items-center gap-3 p-3">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-6 w-6"

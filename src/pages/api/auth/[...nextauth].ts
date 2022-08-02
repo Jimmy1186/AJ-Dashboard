@@ -65,7 +65,7 @@ const options = {
         //   console.log(e);
         // }
         // login failed
-        console.log('no user found')
+        
         return null;
       },
     }),
@@ -81,6 +81,8 @@ const options = {
       }
       return token;
     },
+
+
     // Remove Any
     session: async (params: any) => {
       const { token, session } = params;
@@ -88,13 +90,13 @@ const options = {
         session.id = token.id;
         // saving userData from token to session
         session.user = { ...token.data };
+        console.log(session)
       }
       return session;
     },
   },
   pages: {
     signIn: '/login',
-    signOut: '/auth/signout',
     signup: '/admin/signup',
     error: '/auth/error', // Error code passed in query string as ?error=
     verifyRequest: '/auth/verify-request', // (used for check email message)

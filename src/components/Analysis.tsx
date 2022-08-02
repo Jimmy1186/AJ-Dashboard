@@ -56,8 +56,8 @@ const data = [
 ];
 function Analysis() {
   return (
-    <div className="card w-full h-40 shadow-xl">
-      <div className="card-body w-full h-full bg-white">
+    <div className="card w-full h-40 p-0 shadow-xl">
+      <div className="card-body p-2 w-full h-full bg-white">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart
             width={500}

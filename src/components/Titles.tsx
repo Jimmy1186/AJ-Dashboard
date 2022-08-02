@@ -13,7 +13,7 @@ function Titles({ children, titleName,withTitle }: titleWrapperType) {
       <>
   
         <div className="card flex flex-col gap-5 p-3 md:w-full">
-          <div className="card w-full bg-white p-1 shadow-xl">
+          <div className="card w-full bg-neutral-content p-1 shadow-xl">
             <div className="card-body">
               <h2 className="card-title text-center">{titleName}</h2>
             </div>

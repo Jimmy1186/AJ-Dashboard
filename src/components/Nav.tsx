@@ -1,28 +1,32 @@
-import React, { useState } from "react";
+import React, { useState,Dispatch, SetStateAction } from "react";
 import Person from "./Person";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 
+
+
+
 type navStateType = {
   navState: boolean;
-  setNavState: React.Dispatch<React.SetStateAction<boolean>>;
+
+  setNavState: Dispatch<SetStateAction<boolean>>;
 };
 
 function Nav({ navState, setNavState }: navStateType) {
   const { data: session, status } = useSession();
 
-  if (status === "loading") {
-    return <></>;
-  }
-  if (status === "unauthenticated") {
-    return <></>;
-  }
+  // if (status === "loading") {
+  //   return <></>;
+  // }
+  // if (status === "unauthenticated") {
+  //   return <></>;
+  // }
 
   return (
     <>
       <nav
         style={{ zIndex: 600 }}
-        className={` bg-black p-10 flex h-full flex-col items-center absolute z-30 transition-all  ${
+        className={` bg-neutral p-10 flex h-full flex-col items-center absolute z-30 transition-all  ${
           navState ? "-translate-x-0 opacity-1" : " -translate-x-40 opacity-0"
         } md:-translate-x-0 md:static md:opacity-100 md:p-2`}
       >
@@ -31,11 +35,14 @@ function Nav({ navState, setNavState }: navStateType) {
         navState ? "-translate-x-0 opacity-1" : " -translate-x-40 opacity-0"
       } md:-translate-x-0 md:static `}
     ></nav> */}
-        <div className="logo text-white text-4xl bg-lime-500  flex justify-center items-center rounded-full w-12 h-12 mb-10">
-          <h1 className="">S</h1>
+        <div className="avatar placeholder pt-5 md:pt-10">
+          <div className="bg-primary text-neutral-content rounded-full w-16">
+            <span className="text-3xl">S</span>
+          </div>
         </div>
-        <ul className="list-none text-cyan-50 h-full rounded-md flex flex-col gap-10 text-3xl md:w-40">
-          <li className="flex flex-row items-center gap-3 md:text-2xl pl-2">
+
+        <ul className="list-none text-cyan-50 h-full rounded-md flex flex-col gap-10 text-3xl pt-10 md:w-40 md:pt-20">
+          <li className="flex flex-row items-center gap-3 md:text-2xl pl-2 ">
             <Link href={"/"}>
               <a
                 className="flex items-center  gap-3 "
@@ -152,6 +159,7 @@ function Nav({ navState, setNavState }: navStateType) {
           className="flex items-center  gap-3 "
           onClick={() => setNavState(!navState)}
         > */}
+     
         <Person />
         {/* </a>
       </Link> */}

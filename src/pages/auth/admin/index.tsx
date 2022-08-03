@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import Titles from "../../../components/Titles";
+import Titles from "../../../components/layout/MainSide";
 
 function index() {
   return (

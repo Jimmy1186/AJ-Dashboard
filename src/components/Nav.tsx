@@ -26,9 +26,9 @@ function Nav({ navState, setNavState }: navStateType) {
     <>
       <nav
         style={{ zIndex: 600 }}
-        className={` bg-neutral p-10 flex h-full flex-col items-center absolute z-30 transition-all  ${
+        className={` bg-neutral p-10 flex min-h-full flex-col items-center absolute z-30 transition-all  ${
           navState ? "-translate-x-0 opacity-1" : " -translate-x-40 opacity-0"
-        } md:-translate-x-0 md:static md:opacity-100 md:p-2`}
+        } md:-translate-x-0 md:static md:opacity-100 md:p-2 md:w-3/12 `}
       >
         {/* <nav
       className={` bg-black p-10 flex h-full flex-col items-center absolute z-10 transition-all  ${
@@ -166,7 +166,7 @@ function Nav({ navState, setNavState }: navStateType) {
       </nav>
       {navState ? (
         <div
-          className="invisibleDiv h-full w-full absolute"
+          className="invisibleDiv h-full w-full bg-red absolute z-50"
           onClick={() => setNavState(false)}
         ></div>
       ) : (

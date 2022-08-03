@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Titles from "../../components/Titles";
+import Titles from "../../components/layout/MainSide";
 import { useFormik } from "formik";
 import Image from "next/image";
 import { getProviders, signIn } from "next-auth/react";

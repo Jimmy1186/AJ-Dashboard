@@ -31,23 +31,7 @@ function login() {
     }
   };
 
-  // const formik = useFormik({
-  //   initialValues: {
-  //     username: "",
-  //     password: "",
-  //   },
-  //   onSubmit: async(values) => {
-  //     const status= await signIn("credentials", {
-  //       username: values.username,
-  //       password: values.password,
-  //       redirect:true
-  //     });
-  //     if(status?.ok===true){
-  //       Router.push('/')
-  //     }
-  //   },
-  // });
-
+ 
   return (
     <>
       <Titles withTitle={false} >

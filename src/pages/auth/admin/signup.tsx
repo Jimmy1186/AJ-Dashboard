@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import { getProviders, signIn } from "next-auth/react";
 import { getCsrfToken } from "next-auth/react";
 import { GetStaticProps, GetStaticPaths, GetServerSideProps } from "next";
-import { PrismaClient } from "@prisma/client";
+
 
 // type personType={
 //  username: string;
@@ -13,8 +13,7 @@ import { PrismaClient } from "@prisma/client";
 // }
 
 function signin() {
-  // const prisma = new PrismaClient();
-  // const user = await prisma.user.create( {data} );
+
 
   const [username, setUsername] = useState<string>();
   const [password, setPassword] = useState<string>();
@@ -23,7 +22,22 @@ function signin() {
   // const[role,setRole] = useState<"R" | "W" | "X">("R")
 
   const sumbitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+    const userData = {
+      username,
+      password,
+      role
+    }
+
     e.preventDefault();
+   await fetch('http://localhost:3000/api/signup',{
+      method:'POST',
+      body:JSON.stringify(userData),
+      headers:{
+        'Content-Type':'application/json'
+      }
+    }).then(res=>console.log(res.ok))
+
+  
 
    
  

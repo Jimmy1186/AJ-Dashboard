@@ -8,6 +8,7 @@ import Analysis from "../components/demo/Analysis";
 import Stat from "../components/demo/Stat";
 import TableData from "../components/demo/TableData";
 import MainSide from "../components/layout/MainSide";
+import Card from "../components/demo/Card";
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -21,10 +22,11 @@ const Home: NextPage = () => {
   // }
   return (
     <>
-      <MainSide withTitle={false}>
-        <Analysis />
-        <Stat />
-        <TableData />
+      <MainSide>
+        <Card />
+        <Card />
+        <Card />
+        <Card />
       </MainSide>
     </>
   );

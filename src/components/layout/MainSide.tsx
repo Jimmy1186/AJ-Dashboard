@@ -2,29 +2,20 @@ import React from "react";
 
 type titleWrapperType = {
   children: React.ReactNode;
-  titleName?: string;
-  withTitle: boolean;
 };
 
-function Titles({ children, titleName, withTitle }: titleWrapperType) {
-  if (withTitle) {
-    return (
-      <>
-        <div className="container flex flex-col max-w-3xl   bg-base-200 gap-5  shadow-xl p-3 pt-20 md:w-9/12 md:max-w-7xl">
-          <div className="card w-full bg-base-100 p-1 shadow-xl">
-            <div className="card-body">
-              <h2 className="card-title text-center">{titleName}</h2>
-            </div>
-          </div>
-          {children}
-        </div>
-      </>
-    );
-  }
+function Titles({ children }: titleWrapperType) {
+ 
 
   return (
     <>
-      <div className="container flex flex-col max-w-3xl   bg-base-200 gap-5 shadow-xl p-3 pt-20  md:w-9/12 md:max-w-7xl">
+      <div className="
+      grid grid-cols-1 h-full gap-3 p-3 bg-base-200
+      md:col-start-3 md:col-span-7 md:grid-cols-2 md:gap-4
+      lg:col-start-2 lg:grid-cols-3 lg:gap-5
+      xl:col-span-8 xl:gap-6
+      2xl:col-span-11
+      ">
         {children}
       </div>
     </>

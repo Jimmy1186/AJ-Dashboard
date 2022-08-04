@@ -34,7 +34,7 @@ function login() {
  
   return (
     <>
-      <Titles withTitle={false} >
+      <Titles>
         <div className="card bg-white shadow-xl md:card-side md:place-self-center md:w-full  max-w-4xl">
           <figure className="photoBox h-40 relative md:h-full md:w-1/2">
             <Image src={loginBg} layout="fill" />

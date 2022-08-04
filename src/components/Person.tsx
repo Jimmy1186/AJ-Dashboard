@@ -15,13 +15,7 @@ function Person() {
       <li><a onClick={() => signOut({callbackUrl:'/auth/login'})}>登出</a></li>
     </ul>
   </div>
-//     <div className="avatar placeholder">
-//     <div className="flex items-center bg-neutral-focus text-neutral-content justify-center bg-zinc-100 rounded-full h-12 w-12">
-//       <p className="text-3xl text-black text-center">K</p>
-      
-//     </div>
-   
-// </div>
+
   )
 }
 

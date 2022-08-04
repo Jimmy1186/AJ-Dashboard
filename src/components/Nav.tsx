@@ -1,10 +1,7 @@
-import React, { useState,Dispatch, SetStateAction } from "react";
+import React, { useState, Dispatch, SetStateAction } from "react";
 import Person from "./Person";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-
-
-
 
 type navStateType = {
   navState: boolean;
@@ -25,24 +22,20 @@ function Nav({ navState, setNavState }: navStateType) {
   return (
     <>
       <nav
-        style={{ zIndex: 600 }}
-        className={` bg-neutral p-10 flex min-h-full flex-col items-center absolute z-30 transition-all  ${
+        className={` bg-neutral p-10 flex min-h-full fixed flex-col items-center z-30 transition-all  ${
           navState ? "-translate-x-0 opacity-1" : " -translate-x-40 opacity-0"
-        } md:-translate-x-0 md:static md:opacity-100 md:p-2 md:w-3/12 `}
+        } md:-translate-x-0 md:static md:opacity-100  md:col-start-1 md:col-span-2 
+        lg:col-span-1
+        `}
       >
-        {/* <nav
-      className={` bg-black p-10 flex h-full flex-col items-center absolute z-10 transition-all  ${
-        navState ? "-translate-x-0 opacity-1" : " -translate-x-40 opacity-0"
-      } md:-translate-x-0 md:static `}
-    ></nav> */}
         <div className="avatar placeholder pt-5 md:pt-10">
           <div className="bg-primary text-neutral-content rounded-full w-16">
             <span className="text-3xl">S</span>
           </div>
         </div>
 
-        <ul className="list-none text-cyan-50 h-full rounded-md flex flex-col gap-10 text-3xl pt-10 md:w-40 md:pt-20">
-          <li className="flex flex-row items-center gap-3 md:text-2xl pl-2 ">
+        <ul className="list-none text-cyan-50 h-full rounded-md flex flex-col gap-10 text-3xl pt-10 md:w-40 md:text-xl md:pl-5">
+          <li className="flex flex-row items-center gap-3  ">
             <Link href={"/"}>
               <a
                 className="flex items-center  gap-3 "
@@ -66,7 +59,7 @@ function Nav({ navState, setNavState }: navStateType) {
               </a>
             </Link>
           </li>
-          <li className="flex flex-row items-center gap-3 md:text-2xl pl-2">
+          <li className="flex flex-row items-center gap-3 ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
@@ -83,7 +76,7 @@ function Nav({ navState, setNavState }: navStateType) {
             </svg>
             專案庫
           </li>
-          <li className="flex flex-row items-center gap-3 md:text-2xl pl-2">
+          <li className="flex flex-row items-center gap-3 ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
@@ -100,7 +93,7 @@ function Nav({ navState, setNavState }: navStateType) {
             </svg>
             任務
           </li>
-          <li className="flex flex-row items-center gap-3 md:text-2xl pl-2">
+          <li className="flex flex-row items-center gap-3 ">
             <Link href={"/user_setting"}>
               <a
                 className="flex items-center  gap-3 "
@@ -129,7 +122,7 @@ function Nav({ navState, setNavState }: navStateType) {
               </a>
             </Link>
           </li>
-          <li className="flex flex-row items-center gap-3 md:text-2xl pl-2">
+          <li className="flex flex-row items-center gap-3 ">
             <Link href={"/auth/admin"}>
               <a
                 className="flex items-center  gap-3 "
@@ -159,14 +152,14 @@ function Nav({ navState, setNavState }: navStateType) {
           className="flex items-center  gap-3 "
           onClick={() => setNavState(!navState)}
         > */}
-     
+
         <Person />
         {/* </a>
       </Link> */}
       </nav>
       {navState ? (
         <div
-          className="invisibleDiv h-full w-full bg-red absolute z-50"
+          className="invisibleDiv h-full w-full bg-red absolute z-10"
           onClick={() => setNavState(false)}
         ></div>
       ) : (

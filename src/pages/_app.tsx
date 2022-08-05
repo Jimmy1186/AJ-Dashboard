@@ -7,6 +7,7 @@ import { SessionProvider } from "next-auth/react";
 import { useEffect } from "react";
 import { themeChange } from "theme-change";
 import Wrapper from "../components/layout/Wrapper";
+import MainSide from "../components/layout/MainSide";
 
 function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
@@ -19,7 +20,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Wrapper>
         <NavBtn navState={navState} setNavState={setNavState} />
         <Nav navState={navState} setNavState={setNavState} />
-        <Component {...pageProps} />
+        <MainSide>
+          <Component {...pageProps} />
+        </MainSide>
       </Wrapper>
     </SessionProvider>
   );

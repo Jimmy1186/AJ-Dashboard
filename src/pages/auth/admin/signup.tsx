@@ -1,5 +1,5 @@
 import React, { useReducer, useState } from "react";
-import { Formik } from "formik";
+import { Formik,Form } from "formik";
 import { getProviders, signIn } from "next-auth/react";
 import { getCsrfToken } from "next-auth/react";
 import * as z from "zod";
@@ -20,13 +20,17 @@ const schema = z.object({
   username: z
     .string()
     .min(4, "Password must be at least 4 characters long")
-    .max(12, { message: "less then 12 characters long" }),
+    .max(12, { message: "less then 12 characters long" })
+    .regex(new RegExp("^[A-Za-z0-9_.]+$"), "english and number only"),
   role: z.string().min(1, { message: "Required" }).max(1),
   password: z
     .string()
     .min(6, "Password must be at least 6 characters long")
-    .max(12, "less then 12 characters long"),
+    .max(12, "less then 12 characters long")
+    .regex(new RegExp("^[A-Za-z0-9_.]+$"), "english and number only"),
 });
+
+type dataType = z.infer<typeof schema> 
 
 const initialValues = {
   username: "",
@@ -35,34 +39,40 @@ const initialValues = {
 };
 
 function signin() {
+
+const onsubmit = (values:dataType) =>{
+  console.log( values );
+
+
+}
+
   // const sumbitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
   //   const userData = {
   //     username,
   //     password,
-  //     role
-  //   }
+  //     role,
+  //   };
 
   //   e.preventDefault();
-  //  await fetch('http://localhost:3000/api/signup',{
-  //     method:'POST',
-  //     body:JSON.stringify(userData),
-  //     headers:{
-  //       'Content-Type':'application/json'
-  //     }
-  //   }).then(res=>console.log(res.ok))
-
+  //   await fetch("http://localhost:3000/api/signup", {
+  //     method: "POST",
+  //     body: JSON.stringify(userData),
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   }).then((res) => console.log(res.ok));
   // };
 
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={toFormikValidationSchema(schema)}
-      onSubmit={console.log}
+      onSubmit={values=>console.log(values)}
     >
-      {({ errors, values, handleChange }) => (
-        <div className="card max-w-sm bg-base-100 shadow-xl">
+      {({ errors, values, handleChange,isValid }) => (
+        <div className="card max-w-sm bg-base-100 shadow-xl overflow-y-auto">
           <div className="card-body">
-            <form className="flex flex-col gap-5">
+            <Form className="flex flex-col gap-5">
               <label htmlFor="username" className="font-extrabold text-xl">
                 使用者名稱
               </label>
@@ -103,10 +113,9 @@ function signin() {
 
               <div className="form-control pt-5 font-extrabold text-xl">
                 <label htmlFor="role">權限</label>
-                <span className="label-text text-red-500">
-                    {errors.role}
+                <span className="label-text text-red-500 font-normal">
+                  {errors.role}
                 </span>
-
 
                 <label className="label cursor-pointer">
                   <span className="label-text">訪客</span>
@@ -146,26 +155,18 @@ function signin() {
                 </label>
               </div>
 
-              <label htmlFor="my-modal-4" className="btn modal-button">
+              <button
+                className={`btn ${
+                  !isValid
+                    ? "btn-disabled"
+                    : ""
+                }`}
+                type="submit"
+                aria-disabled="true"
+              >
                 新增
-              </label>
-
-              <input type="checkbox" id="my-modal-4" className="modal-toggle" />
-              <label htmlFor="my-modal-4" className="modal cursor-pointer">
-                <label
-                  className="modal-box flex flex-col justify-center gap-6 items-center relative"
-                  htmlFor=""
-                >
-                  <h3 className="text-lg font-bold">確定新增使用者 ?</h3>
-                  <div className="container flex flex-row justify-center gap-6 items-center">
-                    <button className="btn btn-error">我想想</button>
-                    <button className="btn btn-success" type="submit">
-                      OK
-                    </button>
-                  </div>
-                </label>
-              </label>
-            </form>
+              </button>
+            </Form>
           </div>
         </div>
       )}

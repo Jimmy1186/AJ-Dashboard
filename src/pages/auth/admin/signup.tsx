@@ -4,6 +4,7 @@ import { getProviders, signIn } from "next-auth/react";
 import { getCsrfToken } from "next-auth/react";
 import * as z from "zod";
 import { toFormikValidationSchema } from "zod-formik-adapter";
+import Alert, { alerType } from "../../../components/widget/Alert";
 
 // type personType={
 //  username: string;
@@ -40,34 +41,57 @@ const initialValues = {
 };
 
 function signin() {
-  const onsubmit = (values: dataType) => {
-    console.log(values);
+  const [msg,setMsg]=useState<alerType>({alertTitle: null,
+    alertStatus:null})
+
+
+
+
+  const sumbitHandler = async (values:dataType) => {
+
+
+ 
+    await fetch("http://localhost:3000/api/signup", {
+      method: "POST",
+      body: JSON.stringify({data:values}),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((res) =>{
+     if(res.status===409){
+      setMsg({
+        alertTitle:"無法註冊該使用者",
+        alertStatus:"warn"
+      })
+     }
+     if(res.status>=500){
+
+      setMsg({
+        alertTitle:"後端出狀況 請聯絡工程師",
+        alertStatus:"error"
+      })
+     }
+
+     if(res.ok===true){
+      setMsg({
+        alertTitle:"新增成功",
+        alertStatus:"success"
+      })
+    
+     }
+    console.log(res)
+    })
   };
-
-  // const sumbitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
-  //   const userData = {
-  //     username,
-  //     password,
-  //     role,
-  //   };
-
-  //   e.preventDefault();
-  //   await fetch("http://localhost:3000/api/signup", {
-  //     method: "POST",
-  //     body: JSON.stringify(userData),
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   }).then((res) => console.log(res.ok));
-  // };
 
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={toFormikValidationSchema(schema)}
-      onSubmit={(values) => console.log(values)}
+      onSubmit={sumbitHandler}
     >
+     
       {({ errors, values, handleChange, isValid }) => (
+
         <div className="card max-w-sm bg-base-100 shadow-xl overflow-y-auto">
           <div className="card-body">
             <Form className="flex flex-col gap-5">
@@ -163,6 +187,7 @@ function signin() {
               </button>
             </Form>
           </div>
+          <Alert alertStatus={msg.alertStatus} alertTitle={msg.alertTitle} />
         </div>
       )}
     </Formik>

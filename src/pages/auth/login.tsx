@@ -32,16 +32,17 @@ type dataType = z.infer<typeof schema>;
 
 function login() {
   const router = useRouter();
-
+const [msg,setMsg]=useState("")
   const onsubmit = async (values: dataType) => {
     const status = await signIn("credentials", {
       redirect: false,
       username: values.username,
       password: values.password,
-    });
-    if (status?.ok === true) {
-      router.push("/");
-    }
+    }).then(res=>{
+    if(res?.ok===true) router.push('/')
+      setMsg("請確認帳號密碼")
+    })
+    
   };
 
   return (
@@ -57,7 +58,14 @@ function login() {
           </figure>
           <div className="card-body p-5">
             <Form className="flex flex-col gap-3 max-w-screen-sm ">
+
               <h2 className="text-3xl font-bold">登入</h2>
+           
+              <label className="label">
+                <span className="label-text text-red-500">
+                {msg}
+                </span>
+              </label>
               {/* <input name="csrfToken" type="hidden" defaultValue={csrfToken} /> */}
 
               <label htmlFor="username">使用者</label>

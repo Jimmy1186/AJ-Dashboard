@@ -1,5 +1,5 @@
 import React, { useReducer, useState } from "react";
-import { Formik,Form } from "formik";
+import { Formik, Form } from "formik";
 import { getProviders, signIn } from "next-auth/react";
 import { getCsrfToken } from "next-auth/react";
 import * as z from "zod";
@@ -16,11 +16,12 @@ type errorType = {
   role: string;
   password: string;
 };
-const schema = z.object({
+export const schema = z.object({
   username: z
     .string()
     .min(4, "Password must be at least 4 characters long")
     .max(12, { message: "less then 12 characters long" })
+    .regex(new RegExp(".*[a-z].*"), "One lowercase character")
     .regex(new RegExp("^[A-Za-z0-9_.]+$"), "english and number only"),
   role: z.string().min(1, { message: "Required" }).max(1),
   password: z
@@ -30,7 +31,7 @@ const schema = z.object({
     .regex(new RegExp("^[A-Za-z0-9_.]+$"), "english and number only"),
 });
 
-type dataType = z.infer<typeof schema> 
+ type dataType = z.infer<typeof schema>;
 
 const initialValues = {
   username: "",
@@ -39,12 +40,9 @@ const initialValues = {
 };
 
 function signin() {
-
-const onsubmit = (values:dataType) =>{
-  console.log( values );
-
-
-}
+  const onsubmit = (values: dataType) => {
+    console.log(values);
+  };
 
   // const sumbitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
   //   const userData = {
@@ -67,9 +65,9 @@ const onsubmit = (values:dataType) =>{
     <Formik
       initialValues={initialValues}
       validationSchema={toFormikValidationSchema(schema)}
-      onSubmit={values=>console.log(values)}
+      onSubmit={(values) => console.log(values)}
     >
-      {({ errors, values, handleChange,isValid }) => (
+      {({ errors, values, handleChange, isValid }) => (
         <div className="card max-w-sm bg-base-100 shadow-xl overflow-y-auto">
           <div className="card-body">
             <Form className="flex flex-col gap-5">
@@ -104,6 +102,7 @@ const onsubmit = (values:dataType) =>{
                 <input
                   type="password"
                   name="password"
+                  autoComplete="on"
                   placeholder="****"
                   className="input input-bordered input-lg w-full max-w-xs"
                   onChange={handleChange}
@@ -156,11 +155,7 @@ const onsubmit = (values:dataType) =>{
               </div>
 
               <button
-                className={`btn ${
-                  !isValid
-                    ? "btn-disabled"
-                    : ""
-                }`}
+                className={`btn ${!isValid ? "btn-disabled" : ""}`}
                 type="submit"
                 aria-disabled="true"
               >

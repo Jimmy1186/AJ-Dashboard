@@ -1,4 +1,3 @@
-
 import { verify } from "argon2";
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
@@ -19,7 +18,7 @@ const options: NextAuthOptions = {
         username: { label: "UserName", type: "text", placeholder: "jsmith" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials) {
+      async authorize(credentials, req) {
         const data = {
           username: `${credentials?.username}`,
           password: `${credentials?.password}`,
@@ -32,7 +31,12 @@ const options: NextAuthOptions = {
         });
         // We can throw errors if user exist or return user itself
         // Returning registeredUser
-        if (registeredUser) return registeredUser;
+        if (registeredUser)
+          return {
+            id: registeredUser.id,
+            name: registeredUser.username,
+            role: registeredUser.role,
+          };
         // try {
         //   // const hashed = await hash(data?.password, 10).then(
         //   //   (hasedPass) => (data.password = hasedPass)
@@ -58,21 +62,31 @@ const options: NextAuthOptions = {
   session: { strategy: "jwt", maxAge: 24 * 60 * 60, updateAge: 24 * 60 * 60 },
 
   callbacks: {
-    async jwt({ token, account }) {
+    // async signIn(res) {
+    //   console.log(res)
+    //   return true
+    // },
+    async jwt({ token, account, user }) {
       console.log("===== jwt =====");
+      console.log("user", user);
       console.log("token", token);
       console.log("user", account);
-      
-      if (account) {
-        token.accessToken = account.access_token;
+
+      if (user) {
+        token.id = user.id;
+        token.name = user.name;
       }
       return token;
     },
+
     async session({ session, token, user }) {
       console.log("===== session =====");
+      console.log("session", session);
       console.log("token", token);
       console.log("user", user);
-      session.accessToken = token.accessToken;
+      if (token) {
+        session.id = token.id;
+      }
       return session;
     },
   },

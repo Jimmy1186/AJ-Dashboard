@@ -7,55 +7,70 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model account {
-  id                String  @id
-  userId            Int
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String?
-  access_token      String?
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String?
-  session_state     String?
-  user              user    @relation(fields: [userId], references: [id])
+// model account {
+//   id                String  @id
+//   userId            Int
+//   type              String
+//   provider          String
+//   providerAccountId String
+//   refresh_token     String?
+//   access_token      String?
+//   expires_at        Int?
+//   token_type        String?
+//   scope             String?
+//   id_token          String?
+//   session_state     String?
+//   user              user    @relation(fields: [userId], references: [id])
 
-  @@unique([provider, providerAccountId], map: "Account_provider_providerAccountId_key")
-  @@index([userId], map: "Account_userId_fkey")
-}
+//   @@unique([provider, providerAccountId], map: "Account_provider_providerAccountId_key")
+//   @@index([userId], map: "Account_userId_fkey")
+// }
 
-model example {
-  id String @id
-}
 
-model session {
-  id           String   @id
-  sessionToken String   @unique(map: "Session_sessionToken_key")
-  userId       Int
-  expires      DateTime
-  user         user     @relation(fields: [userId], references: [id])
 
-  @@index([userId], map: "Session_userId_fkey")
-}
+// model session {
+//   id           String   @id
+//   sessionToken String   @unique(map: "Session_sessionToken_key")
+//   userId       Int
+//   expires      DateTime
+//   user         user     @relation(fields: [userId], references: [id])
+
+//   @@index([userId], map: "Session_userId_fkey")
+// }
 
 model user {
   id            Int       @id @default(autoincrement())
   username      String
-  email         String?   @unique(map: "User_email_key")
-  emailVerified DateTime?
-  image         String?
   password      String
   role          String?
-  account       account[]
-  session       session[]
+  // account       account[]
+  // session       session[]
+  creaters project[]
+  histories history[]
 }
 
-model verificationtoken {
-  identifier String
-  token      String   @unique(map: "VerificationToken_token_key")
-  expires    DateTime
-
-  @@unique([identifier, token], map: "VerificationToken_identifier_token_key")
+model project{
+  id Int @id @default(autoincrement())
+  name String
+  description String
+  price  Decimal?  @db.Decimal(19, 4)
+  creater user @relation(fields: [createrID],references: [id])
+  createrID Int
+  histories history[]
 }
+
+model history {
+  id Int @id @default(autoincrement())
+  createAt DateTime @updatedAt
+  editPerson user @relation(fields: [editPersonID],references: [id])
+  editPersonID Int
+  project project @relation(fields: [projectID],references: [id])
+  projectID Int
+}
+// model verificationtoken {
+//   identifier String
+//   token      String   @unique(map: "VerificationToken_token_key")
+//   expires    DateTime
+
+//   @@unique([identifier, token], map: "VerificationToken_identifier_token_key")
+// }

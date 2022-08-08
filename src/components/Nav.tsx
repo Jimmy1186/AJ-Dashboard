@@ -18,7 +18,7 @@ function Nav({ navState, setNavState }: navStateType) {
   // if (status === "unauthenticated") {
   //   return <></>;
   // }
-
+console.log(session)
   return (
     <>
       <nav

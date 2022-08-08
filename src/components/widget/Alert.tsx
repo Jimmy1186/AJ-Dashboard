@@ -1,11 +1,13 @@
-import React from "react";
+import React, { SetStateAction } from "react";
 
 export type alerType = {
   alertTitle: string | null;
   alertStatus: "success" | "info" | "warn" | "error" | null;
+  
 };
 
 function Alert({ alertTitle, alertStatus }: alerType) {
+  
   return (
     <>
       {alertStatus === null ? (
@@ -17,7 +19,10 @@ function Alert({ alertTitle, alertStatus }: alerType) {
         ${alertStatus === "info" ? "alert-info" : ""}
         ${alertStatus === "warn" ? "alert-warning" : ""}
         ${alertStatus === "error" ? "alert-error" : ""}
-        shadow-lg absolute top-7 transition-all`}
+        shadow-lg absolute top-7 transition-all
+   
+        `}
+        
         >
           <div>
             <svg

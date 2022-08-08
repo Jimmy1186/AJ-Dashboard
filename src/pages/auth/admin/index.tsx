@@ -5,7 +5,7 @@ import MainSide from "./../../../components/layout/MainSide";
 function index() {
 
 
-  
+
   return (
     <>
       <MainSide>
@@ -16,7 +16,7 @@ function index() {
               <a className="flex flex-col h-full items-center justify-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 h-3/4"
+                className="w-6 h-3/4"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"

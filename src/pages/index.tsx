@@ -23,10 +23,9 @@ const Home: NextPage = () => {
   return (
     <>
       <MainSide>
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        <Analysis />
+        <Stat />
+        <TableData />
       </MainSide>
     </>
   );

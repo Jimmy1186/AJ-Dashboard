@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { useState } from "react";
+import { Key, useState } from "react";
 import Nav from "../components/Nav";
 import NavBtn from "../components/NavBtn";
 import { useSession } from "next-auth/react";
@@ -14,6 +14,8 @@ const Home: NextPage = () => {
   const router = useRouter();
   const { data: session, status } = useSession();
 
+
+
   // if (status === "loading") {
   //   return <div>Loading</div>;
   // }
@@ -23,7 +25,6 @@ const Home: NextPage = () => {
   return (
     <>
       <MainSide>
-        <Analysis />
         <Stat />
         <TableData />
       </MainSide>

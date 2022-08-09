@@ -54,7 +54,7 @@ model project{
   name String
   description String
   price  Decimal?  @db.Decimal(19, 4)
-  creater user @relation(fields: [createrID],references: [id])
+  creater user @relation(fields: [createrID],references: [id] ,onDelete: SetNull)
   createrID Int
   histories history[]
 }
@@ -62,9 +62,9 @@ model project{
 model history {
   id Int @id @default(autoincrement())
   createAt DateTime @updatedAt
-  editPerson user @relation(fields: [editPersonID],references: [id])
+  editPerson user @relation(fields: [editPersonID],references: [id],onDelete: SetNull)
   editPersonID Int
-  project project @relation(fields: [projectID],references: [id])
+  project project @relation(fields: [projectID],references: [id],onDelete: SetNull)
   projectID Int
 }
 // model verificationtoken {

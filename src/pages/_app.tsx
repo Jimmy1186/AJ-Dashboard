@@ -10,7 +10,8 @@ import Wrapper from "../components/layout/Wrapper";
 import MainSide from "../components/layout/MainSide";
 import {withTRPC} from "@trpc/next"
 import {AppType} from 'next/dist/shared/lib/utils'
-import {AppRouter} from './api/trpc/[trpc]'
+import { ServerRouter } from "../server/router";
+
 
 const MyApp:AppType=({ Component, pageProps })=> {
   useEffect(() => {
@@ -41,7 +42,7 @@ function getBaseUrl(){
   return `http://localhost:${process.env.PORT ?? 3000}`;
 }
 
-export default withTRPC<AppRouter>({
+export default withTRPC<ServerRouter>({
   config({ ctx }) {
     /**
      * If you want to use SSR, you need to use the server's full URL

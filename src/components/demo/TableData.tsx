@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 function TableData() {
   return (
-    <div className="card bg-base-100 shadow-xl">
+    <div className="card bg-base-100 h-fit  shadow-xl">
       <div className="card-body">
         <div className="overflow-x-auto">
           <table className="table w-full">

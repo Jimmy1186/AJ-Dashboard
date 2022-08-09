@@ -24,10 +24,12 @@ const Home: NextPage = () => {
   // }
   return (
     <>
-      <MainSide>
-        <Stat />
+<>
+<Stat />
         <TableData />
-      </MainSide>
+</>
+        
+    
     </>
   );
 };

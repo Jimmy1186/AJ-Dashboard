@@ -4,12 +4,14 @@ import Card from "../components/demo/Card";
 
 function tasks() {
   return (
-    <MainSide>
+<>
     <Card />
     <Card />
     <Card />
     <Card />
-  </MainSide>
+</>
+
+
   )
 }
 

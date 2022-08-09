@@ -7,9 +7,14 @@ import { Context } from "./context";
 
 export const serverRouter = trpc
 .router<Context>()
-.query("findAll",{
+.query("findAllUser",{
     resolve:async({ctx})=>{
         return await ctx.prisma.user.findMany()
+    }
+})
+.query("findAllProject",{
+    resolve:async({ctx})=>{
+        return await ctx.prisma.project.findMany()
     }
 })
 .mutation("insertOne",{
@@ -22,12 +27,6 @@ export const serverRouter = trpc
     resolve:async({input,ctx})=>{
         return await ctx.prisma.project.create({
             data:input
-            // data:{
-            //     name:input.name,
-            //     description:input.description,
-            //     price:input.price,
-            //     createrID: 2,
-            // }
         })
     }
 })

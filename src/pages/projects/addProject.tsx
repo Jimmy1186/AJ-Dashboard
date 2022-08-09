@@ -14,7 +14,7 @@ const projectSchema = z
   })
 
 
-type projectsType = z.infer<typeof projectSchema>;
+export type projectsType = z.infer<typeof projectSchema>;
 
 
 
@@ -53,6 +53,7 @@ const submitHandler = async (values: projectsType) => {
 };
 
   return (
+   
     <Formik
       initialValues={initialValues}
       validationSchema={toFormikValidationSchema(projectSchema)}

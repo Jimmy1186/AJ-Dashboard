@@ -8,11 +8,13 @@ import MainSide from "../components/layout/MainSide";
 
 function dashboard() {
   return (
-    <MainSide>
-    <Analysis />
+<>
+ <Analysis />
     <Stat />
     <TableData />
-  </MainSide>
+</>
+   
+
   )
 }
 

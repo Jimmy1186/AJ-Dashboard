@@ -5,10 +5,7 @@ import Card from "../components/demo/Card";
 function tasks() {
   return (
 <>
-    <Card />
-    <Card />
-    <Card />
-    <Card />
+
 </>
 
 

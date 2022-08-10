@@ -10,6 +10,7 @@ const projectSchema = z
     name: z.string().max(50, "太長"),
     description: z.string().max(999, "太長"),
     price: z.number(),
+    cost:z.number(),
     createrID: z.number(),
   })
 
@@ -39,6 +40,7 @@ function addProject() {
     name: "",
     description: "",
     price:0,
+    cost:0,
     createrID: 0,
   };
 
@@ -48,6 +50,7 @@ const submitHandler = async (values: projectsType) => {
     name:values?.name,
     description:values?.description,
     price:values?.price,
+    cost:values?.cost,
     createrID:session?.id
   })
 };
@@ -96,6 +99,26 @@ const submitHandler = async (values: projectsType) => {
                   className="input input-bordered input-lg w-full max-w-xs"
                   onChange={handleChange}
                   value={values.price}
+                />
+              </div>
+
+
+              <label htmlFor="cost" className="font-extrabold text-xl">
+                成本
+              </label>
+              <div className="form-control w-full">
+                <label className="label">
+                  <span className="label-text text-red-500">
+                    {errors.cost}
+                  </span>
+                </label>
+                <input
+                  type="number"
+                  name="cost"
+                  placeholder="100"
+                  className="input input-bordered input-lg w-full max-w-xs"
+                  onChange={handleChange}
+                  value={values.cost}
                 />
               </div>
 

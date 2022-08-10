@@ -1,7 +1,7 @@
 -- CreateTable
 CREATE TABLE `user` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `name` VARCHAR(191) NOT NULL,
+    `username` VARCHAR(191) NOT NULL,
     `password` VARCHAR(191) NOT NULL,
     `role` VARCHAR(191) NULL,
 
@@ -14,6 +14,8 @@ CREATE TABLE `project` (
     `name` VARCHAR(191) NOT NULL,
     `description` VARCHAR(191) NOT NULL,
     `price` DECIMAL(19, 4) NULL,
+    `cost` DECIMAL(19, 4) NULL,
+    `createAt` DATETIME(3) NOT NULL,
     `createrID` INTEGER NOT NULL,
 
     PRIMARY KEY (`id`)

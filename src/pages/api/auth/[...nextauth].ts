@@ -67,10 +67,10 @@ const options: NextAuthOptions = {
     //   return true
     // },
     async jwt({ token, account, user }) {
-      console.log("===== jwt =====");
-      console.log("user", user);
-      console.log("token", token);
-      console.log("user", account);
+      // console.log("===== jwt =====");
+      // console.log("user", user);
+      // console.log("token", token);
+      // console.log("user", account);
 
       if (user) {
         token.id = user.id;
@@ -80,10 +80,10 @@ const options: NextAuthOptions = {
     },
 
     async session({ session, token, user }) {
-      console.log("===== session =====");
-      console.log("session", session);
-      console.log("token", token);
-      console.log("user", user);
+      // console.log("===== session =====");
+      // console.log("session", session);
+      // console.log("token", token);
+      // console.log("user", user);
       if (token) {
         session.id = token.id;
       }

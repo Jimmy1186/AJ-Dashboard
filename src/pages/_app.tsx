@@ -14,6 +14,8 @@ import { ServerRouter } from "../server/router";
 
 
 const MyApp:AppType=({ Component, pageProps })=> {
+
+  const themeValues =["pastel","business"]
   useEffect(() => {
     themeChange(false);
   }, []);
@@ -22,6 +24,10 @@ const MyApp:AppType=({ Component, pageProps })=> {
   return (
     <SessionProvider session={pageProps.session}>
       <Wrapper>
+      {/* <select title="theme" data-choose-theme>
+         <option value="pastel">Default</option>
+         <option value="business">Dark</option>
+</select> */}
         <NavBtn navState={navState} setNavState={setNavState} />
         <Nav navState={navState} setNavState={setNavState} />
         <MainSide>

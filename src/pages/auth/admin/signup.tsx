@@ -18,7 +18,7 @@ export const schema = z.object({
   role: z.string().min(1, { message: "Required" }).max(1),
   password: z
     .string()
-    .min(6, "Password must be at least 6 characters long")
+    .min(3, "Password must be at least 3 characters long")
     .max(12, "less then 12 characters long")
     .regex(new RegExp("^[A-Za-z0-9_.]+$"), "english and number only"),
 });

@@ -2,6 +2,7 @@ import React, { useState, Dispatch, SetStateAction } from "react";
 import Person from "./Person";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 type navStateType = {
   navState: boolean;
@@ -10,6 +11,8 @@ type navStateType = {
 };
 
 function Nav({ navState, setNavState }: navStateType) {
+  const router = useRouter()
+  console.log(router.pathname)
   const { data: session, status } = useSession();
 
   // if (status === "loading") {
@@ -28,17 +31,21 @@ function Nav({ navState, setNavState }: navStateType) {
         lg:col-span-1
         `}
       >
-        <div className="avatar placeholder pt-5 md:pt-10">
+        <div className="avatar placeholder pt-5 md:pt-10 ">
           <div className="bg-primary text-neutral-content rounded-full w-16">
             <span className="text-3xl">S</span>
           </div>
         </div>
 
         <ul className="list-none text-cyan-50 h-full rounded-md flex flex-col gap-10 text-3xl pt-10 md:w-40 md:text-xl md:pl-5">
-          <li className="flex flex-row items-center gap-3  ">
+          <li className="flex flex-row items-center gap-3   
+          
+          ">
             <Link href={"/"}>
               <a
-                className="flex items-center  gap-3 "
+                className={`flex items-center justify-center  gap-3 transition-all hover:translate-x-5 ease-in-out 
+                
+                w-32 h-10 rounded-lg`}
                 onClick={() => setNavState(!navState)}
               >
                 <svg
@@ -61,8 +68,10 @@ function Nav({ navState, setNavState }: navStateType) {
           </li>
           <li className="flex flex-row items-center gap-3 ">
             <Link href={"/projects"}>
-              <a
-                className="flex items-center  gap-3 "
+            <a
+                className={`flex items-center justify-center  gap-3 transition-all hover:translate-x-5 ease-in-out 
+               
+                w-32 h-10 rounded-lg`}
                 onClick={() => setNavState(!navState)}
               >
                 <svg
@@ -85,8 +94,10 @@ function Nav({ navState, setNavState }: navStateType) {
           </li>
           <li className="flex flex-row items-center gap-3 ">
             <Link href={"/tasks"}>
-              <a
-                className="flex items-center  gap-3 "
+            <a
+                className={`flex items-center justify-center  gap-3 transition-all hover:translate-x-5 ease-in-out 
+               
+                w-32 h-10 rounded-lg`}
                 onClick={() => setNavState(!navState)}
               >
                 <svg
@@ -109,8 +120,10 @@ function Nav({ navState, setNavState }: navStateType) {
           </li>
           <li className="flex flex-row items-center gap-3 ">
             <Link href={"/user_setting"}>
-              <a
-                className="flex items-center  gap-3 "
+            <a
+                className={`flex items-center justify-center  gap-3 transition-all hover:translate-x-5 ease-in-out 
+               
+                w-32 h-10 rounded-lg`}
                 onClick={() => setNavState(!navState)}
               >
                 <svg
@@ -138,8 +151,10 @@ function Nav({ navState, setNavState }: navStateType) {
           </li>
           <li className="flex flex-row items-center gap-3 ">
             <Link href={"/auth/admin"}>
-              <a
-                className="flex items-center  gap-3 "
+            <a
+                className={`flex items-center justify-center  gap-3 transition-all hover:translate-x-5 ease-in-out 
+               
+                w-32 h-10 rounded-lg`}
                 onClick={() => setNavState(!navState)}
               >
                 <svg

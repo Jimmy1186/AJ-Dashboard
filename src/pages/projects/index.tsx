@@ -6,7 +6,8 @@ import { trpc } from '../../utils/trpc';
 import { v4 as uuidv4 } from 'uuid';
 
 function projects() {
-  const {data:projects} = trpc.useQuery(["findAllProject"])
+  const {data:projects,isLoading} = trpc.useQuery(["findAllProject"])
+
 
   return (
 <>

@@ -1,8 +1,9 @@
 import React, { useState, Dispatch, SetStateAction } from "react";
-import Person from "./Person";
+
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { signOut } from "next-auth/react";
 
 type navStateType = {
   navState: boolean;
@@ -11,8 +12,7 @@ type navStateType = {
 };
 
 function Nav({ navState, setNavState }: navStateType) {
-  const router = useRouter()
-  console.log(router.pathname)
+
   const { data: session, status } = useSession();
 
   // if (status === "loading") {
@@ -25,7 +25,7 @@ function Nav({ navState, setNavState }: navStateType) {
   return (
     <>
       <nav
-        className={` bg-neutral p-10 flex min-h-full fixed flex-col items-center z-30 transition-all  ${
+        className={` bg-accent-focus p-10 flex min-h-full fixed flex-col items-center z-30 transition-all  ${
           navState ? "-translate-x-0 opacity-1" : " -translate-x-40 opacity-0"
         } md:-translate-x-0 md:static md:opacity-100  md:col-start-1 md:col-span-2 
         lg:col-span-1
@@ -38,12 +38,14 @@ function Nav({ navState, setNavState }: navStateType) {
         </div>
 
         <ul className="list-none text-cyan-50 h-full rounded-md flex flex-col gap-10 text-3xl pt-10 md:w-40 md:text-xl md:pl-5">
-          <li className="flex flex-row items-center gap-3   
+          <li
+            className="flex flex-row items-center gap-3   
           
-          ">
+          "
+          >
             <Link href={"/"}>
               <a
-                className={`flex items-center justify-center  gap-3 transition-all hover:translate-x-5 ease-in-out 
+                className={`flex items-center justify-start  gap-3 transition-all hover:translate-x-3 ease-in-out 
                 
                 w-32 h-10 rounded-lg`}
                 onClick={() => setNavState(!navState)}
@@ -68,8 +70,8 @@ function Nav({ navState, setNavState }: navStateType) {
           </li>
           <li className="flex flex-row items-center gap-3 ">
             <Link href={"/projects"}>
-            <a
-                className={`flex items-center justify-center  gap-3 transition-all hover:translate-x-5 ease-in-out 
+              <a
+                className={`flex items-center justify-start  gap-3 transition-all hover:translate-x-3 ease-in-out 
                
                 w-32 h-10 rounded-lg`}
                 onClick={() => setNavState(!navState)}
@@ -94,8 +96,8 @@ function Nav({ navState, setNavState }: navStateType) {
           </li>
           <li className="flex flex-row items-center gap-3 ">
             <Link href={"/tasks"}>
-            <a
-                className={`flex items-center justify-center  gap-3 transition-all hover:translate-x-5 ease-in-out 
+              <a
+                className={`flex items-center justify-start  gap-3 transition-all hover:translate-x-3 ease-in-out 
                
                 w-32 h-10 rounded-lg`}
                 onClick={() => setNavState(!navState)}
@@ -120,8 +122,8 @@ function Nav({ navState, setNavState }: navStateType) {
           </li>
           <li className="flex flex-row items-center gap-3 ">
             <Link href={"/user_setting"}>
-            <a
-                className={`flex items-center justify-center  gap-3 transition-all hover:translate-x-5 ease-in-out 
+              <a
+                className={`flex items-center justify-start  gap-3 transition-all hover:translate-x-3 ease-in-out 
                
                 w-32 h-10 rounded-lg`}
                 onClick={() => setNavState(!navState)}
@@ -151,8 +153,8 @@ function Nav({ navState, setNavState }: navStateType) {
           </li>
           <li className="flex flex-row items-center gap-3 ">
             <Link href={"/auth/admin"}>
-            <a
-                className={`flex items-center justify-center  gap-3 transition-all hover:translate-x-5 ease-in-out 
+              <a
+                className={`flex items-center justify-start  gap-3 transition-all hover:translate-x-3 ease-in-out 
                
                 w-32 h-10 rounded-lg`}
                 onClick={() => setNavState(!navState)}
@@ -175,6 +177,30 @@ function Nav({ navState, setNavState }: navStateType) {
               </a>
             </Link>
           </li>
+          <li>
+            <a
+              className={`flex items-center justify-start  gap-3 transition-all hover:translate-x-3 ease-in-out 
+               
+              w-32 h-10 rounded-lg`}
+              onClick={() => signOut({ callbackUrl: "/auth/login" })}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                />
+              </svg>
+              登出
+            </a>
+          </li>
         </ul>
         {/* <Link href={"/user_setting"}>
         <a
@@ -182,7 +208,6 @@ function Nav({ navState, setNavState }: navStateType) {
           onClick={() => setNavState(!navState)}
         > */}
 
-        <Person />
         {/* </a>
       </Link> */}
       </nav>

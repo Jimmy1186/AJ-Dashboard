@@ -20,6 +20,13 @@ export const serverRouter = trpc
       return await ctx.prisma.project.findMany();
     },
   })
+  .query("findLimitProject", {
+    resolve: async ({ ctx }) => {
+      return await ctx.prisma.project.findMany({
+        take:5
+      });
+    },
+  })
   .query("findAllProjectEarnMoney", {
     resolve: async ({ ctx }) => {
       const payload =  await ctx.prisma.project.groupBy({

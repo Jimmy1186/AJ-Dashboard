@@ -1,21 +1,38 @@
 import React from "react";
-import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import {
+  BarChart,
+  Bar,
+  Cell,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
 import { trpc } from "../../utils/trpc";
-
 
 // const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
 const RADIAN = Math.PI / 180;
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042','#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+const COLORS = [
+  "#0088FE",
+  "#00C49F",
+  "#FFBB28",
+  "#FF8042",
+  "#0088FE",
+  "#00C49F",
+  "#FFBB28",
+  "#FF8042",
+];
 
 function EarnMoneyPie() {
+  const { data: payload } = trpc.useQuery(["findAllProjectEarnMoney"]);
 
-    const {data:payload}= trpc.useQuery(["findAllProjectEarnMoney"])
-    
   return (
     <div className="card bg-base-100 overflow-visible shadow-xl">
- <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer width="100%" height="100%">
         <BarChart
           width={500}
           height={300}
@@ -33,7 +50,6 @@ function EarnMoneyPie() {
           <Tooltip />
           <Legend />
           <Bar dataKey="value" stackId="a" fill="#8884d8" />
-  
         </BarChart>
       </ResponsiveContainer>
     </div>

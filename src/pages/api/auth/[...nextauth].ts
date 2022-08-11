@@ -1,11 +1,14 @@
 import { verify } from "argon2";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, user } from "@prisma/client";
 const prisma = new PrismaClient();
 
 import { NextApiHandler } from "next";
 import NextAuth, { NextAuthOptions } from "next-auth";
 
 import CredentialsProvider from "next-auth/providers/credentials";
+
+
+
 
 const options: NextAuthOptions = {
   debug: true,

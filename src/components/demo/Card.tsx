@@ -4,7 +4,7 @@ import React from "react";
 type projectType = {
   name: string;
   description: string;
-  price: any;
+  price:any;
   cost: any;
   createrID: number;
 };

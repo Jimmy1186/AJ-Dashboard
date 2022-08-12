@@ -9,5 +9,8 @@ import { serverRouter } from '../../../server/router'
 
 export default trpcNext.createNextApiHandler({
     router:serverRouter,
-    createContext
+    createContext,
+    onError({ error }){
+        console.error('Error:', error);
+    }
 })

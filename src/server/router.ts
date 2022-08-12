@@ -1,12 +1,13 @@
+import { Prisma } from "@prisma/client";
 import * as trpc from "@trpc/server";
 import { createNextApiHandler } from "@trpc/server/adapters/next";
-import { z } from "zod";
+import { string, z } from "zod";
 import { Context } from "./context";
 
-type newDataType ={
-  createID:number,
-  sum:number
-}[]
+type newDataType = {
+  createID: number;
+  sum: number;
+}[];
 
 export const serverRouter = trpc
   .router<Context>()
@@ -23,27 +24,25 @@ export const serverRouter = trpc
   .query("findLimitProject", {
     resolve: async ({ ctx }) => {
       return await ctx.prisma.project.findMany({
-        take:5
+        take: 5,
       });
     },
   })
   .query("findAllProjectEarnMoney", {
     resolve: async ({ ctx }) => {
-      const payload =  await ctx.prisma.project.groupBy({
+      const payload = await ctx.prisma.project.groupBy({
         by: ["createrID"],
         _sum: {
           price: true,
         },
       });
 
+      let newData = payload.map((values) => ({
+        name: values.createrID,
+        value: values._sum.price,
+      }));
 
-
-      let newData = payload.map((values)=>({
-        name:values.createrID,
-      value:values._sum.price
-      }))
-
-      return  newData
+      return newData;
     },
   })
   .mutation("insertOne", {
@@ -58,6 +57,44 @@ export const serverRouter = trpc
       return await ctx.prisma.project.create({
         data: input,
       });
+    },
+  })
+  .mutation("inertOneUser", {
+    input: z.object({
+      username: z.string(),
+      role: z.string(),
+      password: z.string(),
+    }),
+    resolve: async ({ input, ctx }) => {
+      const sameUserError = new trpc.TRPCError({
+        code: "CONFLICT",
+        message: "已有使用者使用該名稱",
+      });
+      try {
+        let existUser = await ctx.prisma.user.count({
+          where: {
+            username: input.username,
+          },
+        });
+
+        if (existUser != 0) {
+          throw sameUserError;
+        }
+
+        return await ctx.prisma.user.create({
+          data: input,
+        });
+      } catch (e) {
+   
+        if (e != sameUserError) {
+          throw new trpc.TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: "後端出狀況 請聯絡工程師",
+            cause: e,
+          });
+        }
+        throw e
+      }
     },
   });
 

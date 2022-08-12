@@ -96,6 +96,18 @@ export const serverRouter = trpc
         throw e
       }
     },
-  });
+  })
+  .mutation("deleteOneProject",{
+    input:z.object({
+      id:z.number()
+    }),
+    resolve:async({input,ctx})=>{
+      return await ctx.prisma.project.delete({
+        where:{
+          id:input.id
+        }
+      })
+    }
+  })
 
 export type ServerRouter = typeof serverRouter;

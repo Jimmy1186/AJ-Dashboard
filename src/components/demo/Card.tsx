@@ -1,4 +1,4 @@
-import React from "react";
+
 
 type projectType = {
   id:number;
@@ -13,11 +13,11 @@ type projectType = {
 
 
 function Card({ id,name, description, price, cost, createrID,onDelete }: projectType) {
- 
+
 
   return (
     <>
-      <div className="card bg-base-100 h-fit overflow-visible shadow-xl">
+      <div className="card bg-base-100 h-fit overflow-visible shadow-xl transition-all" >
         <button 
         onClick={()=>onDelete(id)}
         title="delete" className="bg-secondary-focus w-8 h-8 flex justify-center items-center rounded-tr-3xl self-end">

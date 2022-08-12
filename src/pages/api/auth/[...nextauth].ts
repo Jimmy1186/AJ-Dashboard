@@ -1,4 +1,4 @@
-import { verify } from "argon2";
+import argon2 from "argon2";
 import { PrismaClient, user } from "@prisma/client";
 const prisma = new PrismaClient();
 
@@ -9,7 +9,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 
 
 
-
+ 
 const options: NextAuthOptions = {
   debug: true,
   providers: [
@@ -22,35 +22,28 @@ const options: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        const data = {
-          username: `${credentials?.username}`,
-          password: `${credentials?.password}`,
-        };
-        // const user = await prisma.user.create( {data} );
-        // return user
-
+        // const data = {
+        //   username: `${credentials?.username}`,
+        //   password: `${credentials?.password}`,
+        // };
+ 
         const registeredUser = await prisma.user.findFirst({
           where: { username: { equals: credentials?.username } },
         });
-        // We can throw errors if user exist or return user itself
-        // Returning registeredUser
-        if (registeredUser)
+   
+        if (registeredUser){
+
+        const match =  await argon2.verify(registeredUser.password,credentials?.password!)
+        
+        if(match){
           return {
             id: registeredUser.id,
             name: registeredUser.username,
             role: registeredUser.role,
-          };
-        // try {
-        //   // const hashed = await hash(data?.password, 10).then(
-        //   //   (hasedPass) => (data.password = hasedPass)
-        //   // );
-        //   const user = await prisma.user.create( {data} );
-        //   // New user successfully created
-        //   return user;
-        // } catch (e) {
-        //   console.log(e);
-        // }
-        // login failed
+          }}
+          return null
+        }
+          
 
         return null;
       },

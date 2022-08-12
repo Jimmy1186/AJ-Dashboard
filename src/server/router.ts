@@ -1,6 +1,7 @@
 import { Prisma } from "@prisma/client";
 import * as trpc from "@trpc/server";
 import { createNextApiHandler } from "@trpc/server/adapters/next";
+import argon2  from "argon2";
 import { string, z } from "zod";
 import { Context } from "./context";
 
@@ -80,9 +81,14 @@ export const serverRouter = trpc
         if (existUser != 0) {
           throw sameUserError;
         }
+        const hash = await argon2.hash(input.password)
 
         return await ctx.prisma.user.create({
-          data: input,
+          data:{
+            username:input.username,
+            password:hash,
+            role:input.role
+          }
         });
       } catch (e) {
    

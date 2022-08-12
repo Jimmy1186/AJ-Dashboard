@@ -1,11 +1,16 @@
-import React, { useCallback } from "react";
+import React,{useCallback} from "react";
 import MainSide from "../../components/layout/MainSide";
 import Card from "../../components/demo/Card";
 import Addbtn from "../../components/widget/Addbtn";
 import { trpc } from "../../utils/trpc";
 import { v4 as uuidv4 } from "uuid";
 
+
 function projects() {
+
+
+
+
   const { data: projects, refetch } = trpc.useQuery(["findAllProject"]);
 
   const deleteProject = trpc.useMutation(["deleteOneProject"], {
@@ -25,9 +30,14 @@ function projects() {
     <>
       <Addbtn addBtnLink="/projects/addProject" addBtnTitle="新增專案" />
 
+
+
       {projects?.map((payload, index) => {
         return (
-          <Card {...payload} onDelete={onDelete} key={uuidv4()}/>
+      
+              <Card {...payload} onDelete={onDelete} key={uuidv4()}/>
+      
+        
           // <div
           //   className="card bg-base-100 h-fit overflow-visible shadow-xl"
           //   key={uuidv4()}
@@ -62,6 +72,7 @@ function projects() {
           // </div>
         );
       })}
+  
     </>
   );
 }

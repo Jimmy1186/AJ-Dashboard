@@ -1,11 +1,15 @@
-import React from "react";
-
+// import React, {useRef,useEffect} from "react";
+// import autoAnimate from '@formkit/auto-animate'
 type titleWrapperType = {
   children: React.ReactNode;
 };
 
-function Titles({ children }: titleWrapperType) {
- 
+function MainSide({ children }: titleWrapperType) {
+  // const parent = useRef(null)
+  // useEffect(() => {
+  //   parent.current && autoAnimate(parent.current)
+  // }, [parent])
+
 
   return (
     <>
@@ -22,4 +26,4 @@ function Titles({ children }: titleWrapperType) {
   );
 }
 
-export default Titles;
+export default MainSide;

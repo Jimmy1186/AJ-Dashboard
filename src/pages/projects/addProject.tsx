@@ -1,21 +1,10 @@
 import React from "react";
 import { Formik, Form } from "formik";
-import * as z from "zod";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import { useSession } from "next-auth/react";
 import { trpc } from "../../utils/trpc";
+import { projectSchema, projectsType } from "../../utils/Types";
 
-const projectSchema = z
-  .object({
-    name: z.string().max(50, "太長"),
-    description: z.string().max(999, "太長"),
-    price: z.number(),
-    cost:z.number(),
-    createrID: z.number(),
-  })
-
-
-export type projectsType = z.infer<typeof projectSchema>;
 
 
 

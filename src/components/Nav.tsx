@@ -26,7 +26,7 @@ function Nav({ navState, setNavState }: navStateType) {
     <>
       <nav
         className={` bg-accent-focus p-10 flex min-h-full fixed flex-col items-center z-30 transition-all  ${
-          navState ? "-translate-x-0 opacity-1" : " -translate-x-40 opacity-0"
+          navState ? "-translate-x-0 opacity-1" : " -translate-x-52 opacity-0"
         } md:-translate-x-0 md:static md:opacity-100  md:col-start-1 md:col-span-2 
         lg:col-span-1
         `}

@@ -117,5 +117,22 @@ export const serverRouter = trpc
       })
     }
   })
+  .mutation("updateProject",{
+    input:z.object({
+      id:z.number(),
+      name: z.string(),
+      description: z.string(),
+      price: z.number(),
+      cost: z.number(),
+    }),
+    resolve:async({input,ctx})=>{
+      const {id,...rest} = input
+
+      return await ctx.prisma.project.update({
+        where:{id},
+        data:{...rest}
+      })
+    }
+  })
 
 export type ServerRouter = typeof serverRouter;

@@ -40,7 +40,7 @@ const submitHandler = async (values: projectsType) => {
     description:values?.description,
     price:values?.price,
     cost:values?.cost,
-    createrID:session?.id
+    createrID:session?.id as number
   })
 };
 

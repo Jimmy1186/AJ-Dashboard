@@ -16,6 +16,7 @@ import GlobalFilter from "../../components/widget/GlobalFilter";
 import CheckboxTable from "../../components/widget/CheckboxTable";
 // const columnHelper = createColumnHelper<projectType>();
 
+
 const column = [
   {
     Header: "id",
@@ -36,21 +37,43 @@ const column = [
     Header: "價格",
     accessor: "price",
   },
+  {
+    Header: "EDIT",
+    Cell: ({ cell }) => (
+      <button
+        title="edit"
+        onClick={()=>console.log("asd") }
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-5 w-5"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
+          <path
+            fillRule="evenodd"
+            d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
+            clipRule="evenodd"
+          />
+        </svg>
+      </button>
+    ),
+  },
 ];
 
 function projects() {
   const {
-    data: payload,
+    data: events,
     refetch,
     isLoading,
-  } = trpc.useQuery(["findAllProject"]);
+  } = trpc.useQuery(["findAllProject"],{
+    refetchOnMount: false
+  });
   const columns = useMemo(() => column, []);
-  //   const events = data ?? [];
-  // const payload = useMemo(()=>events,[])
+    const payload = events ?? [];
+  // const payload = useMemo(()=>payloads,[])
 
-  if (isLoading) {
-    return <>;ll</>;
-  }
 
   // const deleteProject = trpc.useMutation(["deleteOneProject"], {
   //   onSuccess: () => refetch(),
@@ -63,12 +86,14 @@ function projects() {
     pageOptions,
     nextPage,
     previousPage,
-    canPreviusPage,
+    canPreviousPage,
     canNextPage,
     prepareRow,
+    gotoPage,
     state,
-    state: { selectedRowIds },
     setGlobalFilter,
+    setPageSize,
+    state: { selectedRowIds },
     selectedFlatRows,
   } = useTable(
     {
@@ -110,19 +135,54 @@ function projects() {
   const onDelete = trpc.useMutation(["deleteAll"], {
     onSuccess: () => refetch(),
   });
-  const deleteHander = () => {
-    console.log(selectedFlatRows.map((d) => d.original.id));
+
+const onUpdate = trpc.useMutation(['updateProject'],{
+  onSuccess: () => refetch(),
+})
+
+  const deleteHander = useCallback(()=>{
     onDelete.mutate({ ids: selectedFlatRows.map((d) => d.original.id) });
-  };
+  },[onDelete,payload])
+
+  const updateHandler = useCallback(()=>{
+    
+  },[])
+
+
+
+
+
+  console.log("render") 
+
+
+  if (isLoading) {
+    return <progress className="progress w-56"></progress>
+  }
+
 
   return (
     <>
       <Addbtn addBtnLink="/projects/addProject" addBtnTitle="新增專案" />
       <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
-      <button onClick={deleteHander} title="delete" className="bg-base-100 rounded-3xl w-10 h-10 flex justify-center items-center">
+      <button
+        disabled={Object.keys(selectedRowIds).length === 0}
+        onClick={deleteHander}
+        title="delete"
+        className={`bg-base-100 rounded-3xl w-10 h-10 flex justify-center items-center transition-all
+      ${
+        Object.keys(selectedRowIds).length === 0 ? "bg-base-300" : "bg-base-100"
+      }
+      `}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6 text-secondary-focus"
+          className={`h-6 w-6 
+          ${
+            Object.keys(selectedRowIds).length === 0
+              ? "text-primary-content"
+              : "text-secondary-focus"
+          }
+          `}
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -136,7 +196,6 @@ function projects() {
         </svg>
       </button>
 
-      
       <div
         className="overflow-x-auto h-full shadow-2xl rounded-3xl flex flex-col gap-5
       md:col-start-1 md:col-span-7"
@@ -206,28 +265,43 @@ function projects() {
       </div>
 
       <div className="flex justify-center items-center ">
-        <span className="pr-5">
-          Page{" "}
-          <strong>
-            {pageIndex + 1} of {pageOptions.length}
-          </strong>
-        </span>
         <div className="btn-group">
           <button
             className="btn"
             onClick={() => previousPage()}
-            disabled={!canPreviusPage}
+            disabled={!canPreviousPage}
           >
-            Previous
-          </button>
+            {"<"}
+          </button>{" "}
           <button
             className="btn"
             onClick={() => nextPage()}
             disabled={!canNextPage}
           >
-            Next
-          </button>
+            {">"}
+          </button>{" "}
         </div>
+
+        <span>
+          Page{" "}
+          <strong>
+            {pageIndex + 1} of {pageOptions.length}
+          </strong>{" "}
+        </span>
+
+        <select
+          title="page size"
+          value={pageSize}
+          onChange={(e) => {
+            setPageSize(Number(e.target.value));
+          }}
+        >
+          {[10, 20, 30, 40, 50].map((pageSize) => (
+            <option key={pageSize} value={pageSize}>
+              Show {pageSize}
+            </option>
+          ))}
+        </select>
       </div>
     </>
   );

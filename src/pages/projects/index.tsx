@@ -6,7 +6,7 @@ import {
   useGlobalFilter,
   useSortBy,
   useAsyncDebounce,
-  useRowSelect
+  useRowSelect,
 } from "react-table";
 import Addbtn from "../../components/widget/Addbtn";
 import { trpc } from "../../utils/trpc";
@@ -39,10 +39,18 @@ const column = [
 ];
 
 function projects() {
+  const {
+    data: payload,
+    refetch,
+    isLoading,
+  } = trpc.useQuery(["findAllProject"]);
   const columns = useMemo(() => column, []);
+  //   const events = data ?? [];
+  // const payload = useMemo(()=>events,[])
 
-  const { data, refetch } = trpc.useQuery(["findAllProject"]);
-  const events = data ?? [];
+  if (isLoading) {
+    return <>;ll</>;
+  }
 
   // const deleteProject = trpc.useMutation(["deleteOneProject"], {
   //   onSuccess: () => refetch(),
@@ -59,11 +67,12 @@ function projects() {
     canNextPage,
     prepareRow,
     state,
+    state: { selectedRowIds },
     setGlobalFilter,
-    selectdFlatRows
+    selectedFlatRows,
   } = useTable(
     {
-      data: events,
+      data: payload,
       columns,
       debugTable: true,
     },
@@ -71,11 +80,11 @@ function projects() {
     useSortBy,
     usePagination,
     useRowSelect,
-    hooks => {
-      hooks.visibleColumns.push(columns => [
+    (hooks) => {
+      hooks.visibleColumns.push((columns) => [
         // Let's make a column for selection
         {
-          id: 'selection',
+          id: "selection",
           // The header can use the table's getToggleAllRowsSelectedProps method
           // to render a checkbox
           Header: ({ getToggleAllRowsSelectedProps }) => (
@@ -87,27 +96,51 @@ function projects() {
           // to the render a checkbox
           Cell: ({ row }) => (
             <div>
-             <CheckboxTable {...row.getToggleRowSelectedProps()} />
+              <CheckboxTable {...row.getToggleRowSelectedProps()} />
             </div>
           ),
         },
         ...columns,
-      ])
-    
+      ]);
     }
   );
 
   const { globalFilter, pageIndex, pageSize } = state;
 
+  const onDelete = trpc.useMutation(["deleteAll"], {
+    onSuccess: () => refetch(),
+  });
+  const deleteHander = () => {
+    console.log(selectedFlatRows.map((d) => d.original.id));
+    onDelete.mutate({ ids: selectedFlatRows.map((d) => d.original.id) });
+  };
+
   return (
     <>
       <Addbtn addBtnLink="/projects/addProject" addBtnTitle="新增專案" />
-
-
-
       <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
-      <div className="overflow-x-auto h-full shadow-2xl rounded-3xl flex flex-col gap-5
-      md:col-start-1 md:col-span-7">
+      <button onClick={deleteHander} title="delete" className="bg-base-100 rounded-3xl w-10 h-10 flex justify-center items-center">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6 text-secondary-focus"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+          />
+        </svg>
+      </button>
+
+      
+      <div
+        className="overflow-x-auto h-full shadow-2xl rounded-3xl flex flex-col gap-5
+      md:col-start-1 md:col-span-7"
+      >
         <table {...getTableProps()} className="table w-full">
           <thead>
             {headerGroups.map((headerGroup) => (
@@ -173,29 +206,29 @@ function projects() {
       </div>
 
       <div className="flex justify-center items-center ">
-          <span className="pr-5">
-            Page{" "}
-            <strong>
-              {pageIndex + 1} of {pageOptions.length}
-            </strong>
-          </span>
-          <div className="btn-group">
-            <button
-              className="btn"
-              onClick={() => previousPage()}
-              disabled={!previousPage}
-            >
-              Previous
-            </button>
-            <button
-              className="btn"
-              onClick={() => nextPage()}
-              disabled={!canNextPage}
-            >
-              Next
-            </button>
-          </div>
+        <span className="pr-5">
+          Page{" "}
+          <strong>
+            {pageIndex + 1} of {pageOptions.length}
+          </strong>
+        </span>
+        <div className="btn-group">
+          <button
+            className="btn"
+            onClick={() => previousPage()}
+            disabled={!canPreviusPage}
+          >
+            Previous
+          </button>
+          <button
+            className="btn"
+            onClick={() => nextPage()}
+            disabled={!canNextPage}
+          >
+            Next
+          </button>
         </div>
+      </div>
     </>
   );
 }

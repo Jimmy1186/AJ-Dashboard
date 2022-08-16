@@ -103,15 +103,17 @@ export const serverRouter = trpc
       }
     },
   })
-  .mutation("deleteOneProject",{
+  .mutation("deleteAll", {
     input:z.object({
-      id:z.number()
+      ids:z.number().array()
     }),
     resolve:async({input,ctx})=>{
-      return await ctx.prisma.project.delete({
-        where:{
-          id:input.id
-        }
+      const { ids } = input;
+    
+      return await ctx.prisma.project.deleteMany({
+        where: {
+          id: { in: ids },
+        },
       })
     }
   })
